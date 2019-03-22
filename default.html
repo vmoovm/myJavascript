@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>自定义-自定义</title>
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.aa { margin: 50px auto; width: 300px; height: 100px; background: #ccc;}
+</style>
+</head>
+
+<body>
+	<div class="aa" id="aa"></div>
+<!--main start-->
+<div id="main">
+      <ul id="tabbar" class="cl">
+        <li class="t1">t1</li>
+        <li class="def">t2</li>
+        <li class="def">t3</li>
+        <li class="def">t4</li>
+        <li class="def">t5</li>
+      </ul>
+      <div id="content">
+        <div class="cont t1">Hi !</div>
+        <div class="cont t2">I Like You!</div>
+        <div class="cont t3">Hello World!</div>
+        <div class="cont t4">How Are You?</div>
+        <div class="cont t5">I'm fine ,and you?</div>
+      </div>
+ </div> 
+<!--main end-->
+<script type="text/javascript">
+function getMousePos(event) {
+    var e = event || window.event;
+    var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+    var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+    console.log(scrollX)
+    var x = e.pageX || e.clientX + scrollX;
+    var y = e.pageY || e.clientY + scrollY;
+    alert('x: ' + x + '\ny: ' + y);
+    return { 'x': x, 'y': y };
+}	
+	
+</script>
+<script type="text/javascript">
+var aa=document.getElementById("aa");
+
+function addEventSamp(obj,evt,fn){
+  if (obj.addEventListener) {
+    obj.addEventListener(evt, fn, false);
+  }else if(obj.attachEvent){
+    obj.attachEvent('on'+evt,fn);
+  }
+}
+
+addEventSamp(aa,'click',getMousePos)
+</script>
+
+</body>
+</html>

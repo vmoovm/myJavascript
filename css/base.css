@@ -1,0 +1,45 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+
+/*----------------------------------------------------
+最大最小宽高限制
+ min-width: 1000px; width:expression(document.body.clientWidth < 1000? '1000px':'auto');
+ min-height: 1000px; width:expression(document.body.clientHeight < 1000? '1000px':'auto');
+ max-width: 1000px; width:expression(document.body.clientWidth > 1000? '1000px':'auto');
+ max-height: 1000px; width:expression(document.body.clientHeight > 1000? '1000px':'auto');
+ 
+ 弹层背景平铺宽高自适应
+ position:fixed; _position:absolute; bottom:0; _bottom:auto; _top:expression(eval(documentElement.scrollTop + documentElement.clientHeight-this.offsetHeight));  width:100%; height:1080px; border-top:3px #999 solid; background:url(../images/opacity50.png) repeat;
+ 
+ 多余省略号
+ overflow:hidden; white-space:nowrap; -webkit-text-overflow:ellipsis; -moz-text-overflow:ellipsis; -o-text-overflow:ellipsis; text-overflow:ellipsis;
+
+-----------------------------------------------------*/
+/*----------------------------------------------------
+Default
+-----------------------------------------------------*/
+*html{ background-image:url("IE6-fixed-FangDou"); background-attachment:fixed;}
+body,ul,ol,dl,dt,dd,li,p,h1,h2,h3,h4,h5,h6,form,label,fieldset,table,td,img,div,th{
+border:0;margin:0px; padding:0;}
+li,dd,dl,dt {list-style-type:none;}
+table {border-collapse:collapse;} 
+b,em,i,u,strong{font-weight:normal;font-style:normal;text-decoration:none;}
+.clear{ clear:both; line-height:0; font-size:0;  border:none; height:0; }
+.empty { line-height:0; font-size:0;}
+.fr{ float:right;}
+.fl{ float:left;}
+.clearfix{overflow:hidden;zoom:1}
+.br { word-wrap:break-word;	word-break:break-all;}
+
+/*-----------------------------------------------------
+User-defined
+-----------------------------------------------------*/
+h1,h2,h3,h4,h5,h6 { font-family:Tahoma, Helvetica, Arial, 'Microsoft YaHei', sans-serif; font-size:12px; font-weight:normal;}	
+body {font-size:12px; font-family:Tahoma, Helvetica, Arial, 'Microsoft YaHei', sans-serif; color:#333; background:#fff;}
+input,select,textarea{ margin: 0; padding:0; vertical-align:middle; font-family:Tahoma, Helvetica, Arial, 'Microsoft YaHei', sans-serif; color:#333; outline:none; resize:none;}
+
+a { color: #333; text-decoration: none; }
+a:hover { color:#333; text-decoration: underline; }
+
+.zcenter { width: 1000px; margin: 0 auto;}

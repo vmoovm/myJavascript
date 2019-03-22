@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="a b c" id="abc"></div>
+		<script type="text/javascript">
+			function hasClass (el, c) {
+				var re = new RegExp("(^|\\s)" + c + "(\\s|$)");
+		        return re.test(el.className);
+			}
+			var abc = document.getElementById('abc')
+			console.log(hasClass(abc, 'c'))
+			
+		</script>
+	</body>
+</html>

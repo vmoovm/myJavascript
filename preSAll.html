@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable" /> 
+<meta content="black" name="apple-mobile-web-app-status-bar-style" /> 
+<meta content="telephone=no" name="format-detection" /> 
+<title>签到相册功能</title>
+<link href="css/base.css" rel="stylesheet" type="text/css" />
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+*{margin:0;padding:0;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;-webkit-appearance:none;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;}
+body{font:14px/1.5 'fzlantingheis-el-gbregular';background:#fff;color:#333;}
+ul{list-style-type:none;}
+input,select,textarea{vertical-align:middle; font:14px 'fzlantingheis-el-gbregular'; color:#333;}
+a:link,a:hover,a:active,a:visited{text-decoration:none;color:#333;}
+table{border-spacing:0px; border-collapse:collapse;width:100%; border:0px;margin:0;padding:0;}
+img{border:0px;}
+em{font-style:normal;}
+.clearfix{overflow:hidden;zoom:1;}
+.clear{clear:both; height:0px; font-size:0px; line-height:0px; overflow:hidden;}
+.fl{float:left;}
+.fr{float:right;}
+
+	
+.zwork {width:100%;min-height: 70px;border-bottom: 1px solid #ebebeb;padding: 16px 10px 18px;background: #fff;}
+.tmTime {}
+.tmTime h3{line-height: 28px;font-size: 17px;color:#333;font-weight:100;}
+.tmTime h4{line-height: 20px;font-size: 15px;color:#999;font-weight:100;}
+.zwork_info { padding-top:10px;font-size: 15px;color: #999;}
+
+
+
+.startBtn{width:100%;padding:0 10px;margin-top:40px;}
+.startBtn input{width:100%;height:40px;background:#0099ff;color:#fff;font-size:15px;border:none;border-radius:4px;}
+
+</style>
+</head>
+
+<body style=" background: #f5f6f8;">
+	<div class="zphotos">
+		<div class="zphotos_header"></div>
+		<div class="zphotos_body"></div>
+		<div class="zphotos_footer" id="zinfo" style="margin-left: 30px;">
+			<div class="zphotos_info">
+				<div class="zphotos_pic"><img src="#"/></div>
+				<dl class="zphotos_txt">
+					<dt>人名</dt>
+					<dd>学号：331233333332</dd>
+				</dl>
+			</div>
+			<div class="zphotos_info">
+				<div class="zphotos_pic"><img src="#"/></div>
+				<dl class="zphotos_txt">
+					<dt>人名</dt>
+					<dd>学号：331233333332</dd>
+				</dl>
+			</div>
+			<div class="zphotos_info" id="site">
+				<div class="zphotos_pic"><img src="#"/></div>
+				<dl class="zphotos_txt">
+					<dt>人名</dt>
+					<dd>学号：jjjjjjj</dd>
+				</dl>
+			</div>
+			<div class="zphotos_info">
+				<div class="zphotos_pic"><img src="#"/></div>
+				<dl class="zphotos_txt">
+					<dt>人名</dt>
+					<dd>学号：efefef</dd>
+				</dl>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		// 获得当前元素之后所有兄弟元素
+		// 参数说明 
+		// ele 必填项，字符串，可传html标签\class名\id名 注：传值有误时，返回false
+		// hasSelf 选填项 boolean类型，是否包含ele本身
+		function preSAll(ele,hasSelf) {
+			if (ele.nodeName ) {
+				//如果是class或者当前元素为无属性标签，为记录当前位置
+				var curSite = new Date()*1
+				ele.setAttribute('curSite',curSite);
+			} else if (/^\./g.test(ele)) {
+				//如果是class或者当前元素为无属性标签，为记录当前位置
+				var curSite = new Date()*1;
+				if (document.querySelector(ele)) {
+					document.querySelector(ele).setAttribute('curSite',curSite);
+				} else {
+					return [];
+				}
+			} else if (/^\#/g.test(ele)) {
+				if (!document.querySelector(ele)) return [];
+			} else if (ele && document.querySelector(ele)) {
+				var curSite = new Date()*1;
+				if (document.querySelector(ele)) {
+					document.querySelector(ele).setAttribute('curSite',curSite);
+				} else {
+					return [];
+				}
+			} else {
+				return false;
+			}
+			
+			if ( ele.nodeName ) {
+				var eleAll = ele.parentElement.children;
+			} else {
+				var eleAll = document.querySelector(ele).parentElement.children;
+			}
+			
+			var eleArray = new Array();
+			var afterArray = new Array();
+			var eleIndex = 0;
+			for (var i = 0; i < eleAll.length; i ++) {
+				eleArray.push(eleAll[i]);
+				if (ele.nodeName) {
+					if (eleAll[i].getAttribute('curSite') == curSite) {
+						eleIndex = i - 1;
+						if (i >= 0) eleAll[i].removeAttribute('curSite');
+					}
+				} else if (/^\./g.test(ele)) {
+					if (eleAll[i].className == ele.replace(/^\./g, '') && eleAll[i].getAttribute('curSite') == curSite) {
+						eleIndex = i - 1;
+						eleAll[i].removeAttribute('curSite');
+					}
+				} else if (/^\#/g.test(ele)) {
+					if (eleAll[i].getAttribute('id') == ele.replace(/^\#/g, '')) eleIndex = i - 1;
+				}
+			}
+			// 是否包含自己
+			if (typeof hasSelf =='boolean' && hasSelf) {
+				//包含自己时，若等于总长度时，只返回自己
+				eleIndex=eleIndex + 1;
+				if (eleIndex == eleArray.length) return el;
+			} else {
+				//不包含自己时，若等于总长度-1时，没有兄弟元素
+				if(eleIndex == eleArray.length) return [];
+			}
+			//整理出要返回的元素
+			for ( var n = eleIndex; n >= 0; n --) {
+				afterArray.push(eleArray[n]);
+			}
+			return afterArray
+		}
+		
+		
+		// 例一：class名称
+	/*	var dd = preSAll('#site',true);
+		console.log(dd);
+		for (var i = 0; i < dd.length; i ++) {
+			dd[i].style.color = '#c00';
+		}*/
+		// 例二：html标签
+		/*var dd=preSAll('div',true);
+		console.log(dd);*/
+		
+		
+		// 例三:
+		/*function bindEl(i) {
+			var i = i;
+			console.log(i)
+			aa[i].addEventListener('click', function () {
+				var dd=preSAll(aa[i], false);
+				console.log(dd);
+				for (var i = 0; i < dd.length; i ++) {
+					dd[i].style.color = '#c00';
+				}
+			},false);
+		}*/
+		// 例三:
+		function bindEl(i) {
+			aa[i].addEventListener('click', function () {
+				var dd=preSAll(aa[i], true);
+				console.log(dd)
+				for (var n = 0; n < dd.length; n ++) {
+					dd[n].style.color = '#c00';
+				}
+			},false);
+		}
+		var aa = document.querySelectorAll('.zphotos_info');
+		for ( var i = 0; i < aa.length; i ++) {
+			bindEl(i);
+		}
+		
+	</script>
+</body>
+</html>

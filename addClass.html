@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="a b c" id="abc"></div>
+		<script type="text/javascript">
+			function hasClass (el, c) {
+				var re = new RegExp("(^|\\s)" + c + "(\\s|$)");
+		        return re.test(el.className);
+			}
+			function addClass (el, c) {
+				if (hasClass (el, c)) return
+				var newClass = el.className.split(' ')
+				newClass.push(c)
+				el.className = newClass.join(' ')
+			}
+			var abc = document.getElementById('abc');
+			addClass(abc, 'd')
+			
+		</script>
+	</body>
+</html>

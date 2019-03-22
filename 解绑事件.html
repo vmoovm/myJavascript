@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>事件委托</title>
+	</head>
+	<body>
+		<style type="text/css">
+		#out {
+		 	width: 500px;
+		 	background-color: #CDE
+		}
+		#inner {
+		 	background-color: #ABCDEF;
+		 	margin: 0;
+		 	padding: 0;
+		 	width: 400px;
+		}
+		ul {
+		 	background-color: pink;
+		 	margin: 0;
+		 	padding: 0;
+		 	width: 400px;
+		}
+		li {
+		 	width: 398px;
+		 	height: 20px;
+		 	border: 1px solid black;
+		 	margin: 15px 0px;
+		 	padding: 0px;
+		 	list-style: none;
+		}
+		</style>
+		<ul id="list">
+		 <li id="item1" class="item" >item1</li>
+		 <li id="item2" class="item" >item2</li>
+		 <li id="item3" class="item" style="background: #33A6FF; height: 100px;"><p class="aa" id="daAAB" style="background: #4E6B9C;">item3</p></li>
+		</ul>
+		 
+		 <!--找到了 start-->
+		 
+		 <!--<script type="text/javascript">
+		 	function getNode(node) {
+		        if (node.nodeName === 'LI') {
+		            return node;
+		        } else if (node.nodeName === 'BODY' || node.nodeName === 'HTML'){
+		            return 'false'
+		        } else {
+		        	return getNode(node.parentNode);
+		        }
+		    }
+		 	document.getElementById("list").addEventListener('click',function(e){
+		 		// console.log(getNode(e.target))
+		 	},false)
+		 	
+		 </script>-->
+		 
+		 <!--找到了 end-->
+		 
+		 
+		 
+		<script>
+		 /**
+	     * 委托事件绑定方法
+	     * @params parent 委托父元素的css选择符 tag id class
+	     * @params eventsName 绑定的事件
+	     * @params child 绑定事件的元素css选择符 tag id class
+	     * @params callback 事件响应函数
+	     * 
+	     * update: 2017.11.6
+	     * 
+	     */
+	    function un (parent, eventsName, fnName) {
+	        var parentNodes = document.querySelectorAll(parent);
+	        var len = parentNodes.length;
+	        if (len === 0) {
+	            return;
+	        }
+	
+	        for (var i = 0; i < len; i++) {
+	            addListener(i)
+	        }
+	        if (fnName) {
+	        	var _unbind = fnName;
+	        } else {
+		        var _unbind = function (){};
+	        }
+	        
+	        // 绑定事件方法
+	        function addListener(i) {
+		        parentNodes[i].removeEventListener(eventsName, _unbind, false);
+	        }
+	        
+	    }
+	    
+		</script>
+		<!--div#out>div#inner:--> 
+		<div id="out">
+			<ul id="inner">
+				<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+				<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+				<li class="lib" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+				<li class="lib">class="lib"</li>
+				<li class="lib">class="lib"</li>
+				<li class="lib">class="lib"</li>
+			</ul>
+		</div>
+		ul: 
+		<ul>
+			<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+			<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+			<li class="lib" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+			<li class="lib">class="lib"</li>
+			<li class="lib">class="lib"</li>
+			<li class="lib">class="lib"</li>
+		</ul>
+		<script type="text/javascript">
+			
+			// 例子 父为id  子为标签时
+		    /*on('#list','click','li',function(){
+		    	console.log(123)
+		    })*/
+		    // 例子 父为id 子为样式名时
+			/*on('#inner','click','.lia',function(obj){
+		    	console.log(obj.index)
+		    	obj.e.stopPropagation()
+		    })*/
+			// 例子 父为子的间接父子时
+			/*on('#out','click','li',function(){
+		    	console.log(789)
+		    })*/
+			// 例子 父子均为标签时
+			on('ul','click','li',function(obj){
+		    	console.log(obj.index)
+		    })
+			// 获得参数应用
+			/*on('ul','click','li',function(obj){
+				// 获得对象
+		    	// console.log(obj)
+				// 获得事件
+		    	// console.log(obj.e)
+				// 获得事件类型
+		    	// console.log(obj.e.type)
+				// 获得当前元素
+		    	// console.log(obj.self)
+				// 获得当前元素索引
+		    	// console.log(obj.index)
+				
+		    	
+		    	
+		   });*/
+			
+		</script>
+		
+	</body>
+</html>

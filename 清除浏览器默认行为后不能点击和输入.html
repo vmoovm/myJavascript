@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="" id="daAAB">
+		<div class="" style="height: 1000px;"></div>
+		<div class=""><input type="text" name="" id="" value="" /></div>
+		</div>
+		<script type="text/javascript">
+		var daAAB = document.getElementById('daAAB')
+		daAAB.addEventListener('click', function (e) {
+				e.preventDefault()
+				console.log(e.target.tagName)
+				// clicke(e)
+		}, false)
+		
+			function clicke(e) {
+				        var target = e.target,
+				            ev;
+		
+				        if ( !(/(SELECT|INPUT|TEXTAREA)/i).test(target.tagName) ) {
+				            // https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/initMouseEvent
+				            // initMouseEvent is deprecated.
+				            ev = document.createEvent(window.MouseEvent ? 'MouseEvents' : 'Event');
+				            ev.initEvent('click', true, true);
+				            ev.view = e.view || window;
+				            ev.detail = 1;
+				            ev.screenX = target.screenX || 0;
+				            ev.screenY = target.screenY || 0;
+				            ev.clientX = target.clientX || 0;
+				            ev.clientY = target.clientY || 0;
+				            ev.ctrlKey = !!e.ctrlKey;
+				            ev.altKey = !!e.altKey;
+				            ev.shiftKey = !!e.shiftKey;
+				            ev.metaKey = !!e.metaKey;
+				            ev.button = 0;
+				            ev.relatedTarget = null;
+				            ev._constructed = true;
+				            target.dispatchEvent(ev);
+				        }
+				    };
+		</script>
+	</body>
+</html>

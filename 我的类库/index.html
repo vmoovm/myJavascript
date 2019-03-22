@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/zzl.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="zbox" id="test">
+			<a href="#">aaa</a>
+			<div class=""><a href="#tabbar"><span>456</span></a></div>
+			<p>asfd</p>
+			<div id="main">
+				<ul id="tabbar" class="cl">
+					<li class="t1">t1</li>
+					<li class="def">t2</li>
+					<li class="def">t3</li>
+					<li class="def">t4</li>
+					<li class="def">t5</li>
+				</ul>
+				<div id="content">
+					<div class="cont t1">Hi !</div>
+					<div class="cont t2">I Like You!</div>
+					<div class="cont t3">Hello World!</div>
+					<div class="cont t4">How Are You?</div>
+					<div class="cont t5">I'm fine ,and you?</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			// console.log(z('#test'))
+			var c = z('.cont')
+			/*z('#test').dom.style.width = '100px';
+			z('#test').dom.style.height = '100px';
+			z('#test').dom.style.background = '#ff0';
+			z('#test').bgc('#00f');*/
+			// c.dom.style.width = '100px';
+			// c.dom.style.height = '100px';
+			// c.dom.style.background = '#ff0';
+			var tect = 'color:#fff; background:#0ff; width:100px; height:100px;';
+			c.cs('width','100px');
+			c.cs('height','100px');
+			c.cs('border','1px #ccc solid');
+			c.cs('background','#0ff');
+			c.cs(tect);
+			var id = z('#main')
+			id.preSAll().cs('background','#f00')
+		</script>
+	</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div class="a b c" id="abc"></div>
+		<script type="text/javascript">
+			function hasClass (el, c) {
+				var re = new RegExp("(^|\\s)" + c + "(\\s|$)");
+		        return re.test(el.className);
+			}
+			
+			function removeClass (el, c) {
+		        if (!hasClass(el, c)) return
+
+		        var re = new RegExp("(^|\\s)" + c + "(\\s|$)", 'g');
+		        el.className = el.className.replace(re, ' ');
+		    }
+			var abc = document.getElementById('abc')
+			removeClass(abc, 'c')
+		</script>
+	</body>
+</html>

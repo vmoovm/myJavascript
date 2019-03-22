@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>元素操作</title>
+		<style type="text/css">
+		#out {
+		 	width: 500px;
+		 	background-color: #CDE
+		}
+		#inner {
+		 	background-color: #ABCDEF;
+		 	margin: 0;
+		 	padding: 0;
+		 	width: 400px;
+		}
+		ul {
+		 	background-color: pink;
+		 	margin: 0;
+		 	padding: 0;
+		 	width: 400px;
+		}
+		li {
+		 	width: 398px;
+		 	height: 20px;
+		 	border: 1px solid black;
+		 	margin: 15px 0px;
+		 	padding: 0px;
+		 	list-style: none;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="out">
+			<ul id="inner">
+				<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+				<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+				<li class="lib" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+				<li class="lib">class="lib"</li>
+				<li class="lib">class="lib"</li>
+				<li class="lib">class="lib"</li>
+			</ul>
+		</div>
+		ul: 
+		<ul>
+			<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+			<li class="lia" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+			<li class="lib" attr-action="setWhat">class="lia" attr-action="setWhat"</li>
+			<li class="lib">class="lib"</li>
+			<li class="lib">class="lib"</li>
+			<li class="lib">class="lib"</li>
+		</ul>
+		<style type="text/css">
+			.test { width: 70%; margin: 0 auto border:1px #dedede solid; padding: 18px;}
+		</style>
+		<div class="test" id="test"></div>
+		<script type="text/javascript">
+				// console.log(ps)
+				var psb=document.getElementById("inner")
+				var chils= psb.childNodes;  //得到全部子节点
+				var par=psb.parentNode;   //得到父节点
+				var ns=psb.nextSbiling;   //获得下一个兄弟节点
+				var ps=psb.previousSbiling;  //得到上一个兄弟节点
+				var fc=psb.firstChild;   //获得第一个子节点
+				var lc=psb.lastChild;   //获得最后一个子节点
+				function a(){ alert('a')}
+				function b(){ alert('b')}
+				function c(){ alert('b')}
+				psb.addEventListener('click', a, false)
+				psb.addEventListener('click', b, false)
+				// psb.removeEventListener('click', a)
+				// psb.removeEventListener('click', b)
+				psb.removeEventListener('click',c)
+				
+				
+				　var jQuery = function(){
+
+				　　　　return new jQuery.prototype.init();
+				
+				　　}
+				
+				　　jQuery.prototype = {
+				
+				　　　　init : function(){
+				
+				　　　　　　return this;
+				
+				　　　　},
+				
+				　　　　name : function(){alert("chenliang");}
+				
+				　　}
+				
+				console.log(jQuery.init);
+		</script>
+	</body>
+</html>

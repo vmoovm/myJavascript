@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li { list-style: none;}
+			#inner { width: 400px; margin: 40px auto; background: #64BCCC;}
+			.lia { height: 30px; border-bottom: 1px #CCCCCC solid;}
+		</style>
+	</head>
+	<body>
+		<ul id="inner"></ul>
+		<script type="text/javascript">
+			function parseToDOM(str){
+			   var div = document.createElement("div");
+			   if(typeof str == "string")
+			       div.innerHTML = str;
+			   return div.childNodes;
+			}
+			var sd = '<li>1</li> <li>2</li> <li>3</li> <li>4</li>   <li>5</li>  '
+			var dsd = []
+			dsd = parseToDOM(sd)
+			var test = document.getElementById('inner')
+			for(var i = 0; i < dsd.length; i++) {
+				var a = dsd[i].cloneNode(true);
+				test.appendChild(a)
+			}
+		</script>
+	</body>
+</html>
