@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>find</title>
+	</head>
+	<body>
+		<div class="test">
+			<ul>
+				<li><p><a href="#">链接1</a></p></li>
+				<li><p><a href="#">链接2</a></p></li>
+				<li><p><a href="#">链接3</a></p></li>
+			</ul>
+			<ul>
+				<li><p><a href="#">链接1</a></p></li>
+				<li><p><a href="#">链接2</a></p></li>
+				<li>
+					<ul>
+						<li><p><a href="#">链接1</a></p></li>
+						<li><p><a href="#">链接2</a></p></li>
+						<li><p><a href="#">链接3</a></p></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			var test = document.getElementsByClassName('test')[0]
+			function cdE (ele, eleSubType) {
+				var NodeArr = []
+				for (var c = 0; c < ele.childNodes.length; c++) {
+					console.log(ele.childNodes[c].nodeName.toLowerCase() == eleSubType.value)
+					if (eleSubType.type = 'name') {
+						if (ele.childNodes[c].nodeType == 1 && (ele.childNodes[c].nodeName.toLowerCase() == eleSubType.value)) {
+							NodeArr.push(ele.childNodes[c])
+						}
+					}
+					// if (eleSubType.type = 'name') {
+						// if (ele[c].nodeType == 1 && ele[c].nodeName.toLowerCase() == eleSubType.value) NodeArr.push(ele[c])
+					// } else if (eleSubType.type = 'className') {
+						// var re = new RegExp("(^|\\s)" + eleSubType.value + "(\\s|$)");
+						// if (ele[c].nodeType == 1 && re.test(ele[c].className)) NodeArr.push(ele[c])
+					// } else if (eleSubType.type = 'idName') {
+						// if (ele[c].nodeType == 1 && ele[c].id == eleSubType.value) NodeArr.push(ele[c])
+					// }
+				}
+				return NodeArr
+			}
+			
+			function find (ele, eleChildren, eleSubType) {
+				var NodeArr = []
+				if (ele.childNodes) {
+					NodeArr.push(cdE(ele, eleSubType))
+				} else {
+					for (var l = 0; l < ele.length; l++) {
+						NodeArr.push(cdE(ele[l], eleSubType))
+					}
+				}
+				
+				console.log(NodeArr)
+				
+				for (var r = 0; r < NodeArr.length; r++) {
+					eleChildren.push(NodeArr[r])
+				}
+				for (var v = 0; v < NodeArr.length; v++) {
+					for (var s = 0; s < NodeArr[v].length; s++) {
+						if (NodeArr[v][s].childNodes) {
+							return find(NodeArr[v][s], eleChildren, eleSubType)
+						}
+					}
+				}
+				return eleChildren
+			}
+			
+		
+		 var userChildren = function (ele, eleSub) {
+		 	var eleChildren = []
+		 	if (!ele.childNodes) return eleChildren
+			// 是找标签|class|id
+			if (/^\./g.test(eleSub)) {
+				var eleSubType = {type: 'className', value: eleSub}
+			} else if (/^\#/g.test(eleSub)) {
+				var eleSubType = {type: 'idName', value: eleSub}
+			} else {
+				var eleSubType = {type: 'name', value: eleSub}
+			}
+			
+			
+			// var chid=ele.childNodes
+			
+			return find(ele, eleChildren, eleSubType)
+			// for (var i=0, l = chid.length; i < l; i++) {
+				// if (eleSubType.type = 'name') {
+					// console.log(chid[i].nodeName)
+					// if (chid[i].eleSub == 1 && (chid[i].nodeName.toLowerCase() == eleSubType.value)) {
+						// eleMatch.push(chid[i])
+					// }
+					// 
+				// } else if (eleSubType.type = 'className') {
+					// var re = new RegExp("(^|\\s)" + eleSubType.value + "(\\s|$)");
+					// if (chid[i].eleSub == 1 && re.test(chid[i].className)) eleMatch.push(chid[i])
+				// } else if (eleSubType.type = 'idName') {
+					// if (chid[i].eleSub == 1 && chid[i].id == eleSubType.value) eleMatch.push(chid[i])
+				// }
+			// }
+			// 
+			// var eleChildren = eleMatch
+			// for (var v = 0; v < eleMatch.length; v++) {
+				// if (eleMatch[v].childNodes) {
+					// return find(eleMatch, eleChildren, eleSubType)
+				// }
+			// }
+		}
+			console.log(userChildren(test, 'li'))
+		</script>
+	</body>
+</html>

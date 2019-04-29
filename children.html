@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>children</title>
+	</head>
+	<body>
+		<div class="test">
+			<ul>
+				<li><p><a href="#">链接1</a></p></li>
+				<li><p><a href="#">链接2</a></p></li>
+				<li><p><a href="#">链接3</a></p></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			function children(ele, eleName) {
+				var arr = []
+				var hasEle = eleName ? eleName : false
+				for (var c = 0; c < ele.childNodes.length; c++) {
+					console.log(ele.childNodes[c].nodeType)
+					if (ele.childNodes[c].nodeType == 1) {
+						if (hasEle == false) {
+							arr.push(ele.childNodes[c])
+						} else {
+							if (ele.childNodes[c].nodeName.toLocaleLowerCase() == hasEle) {
+								arr.push(ele.childNodes[c])
+							}
+							
+						}
+					}
+				}
+				return arr
+			}
+			var test = document.getElementsByClassName('test')[0]
+			console.log(children(children(test)[0]))
+			
+		</script>
+	</body>
+</html>
