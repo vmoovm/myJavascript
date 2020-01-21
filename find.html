@@ -6,19 +6,22 @@
 	</head>
 	<body>
 		<div class="test">
+			<p></p>
+			<p></p>
+			<p></p>
 			<ul>
-				<li><p><a href="#">链接1</a></p></li>
-				<li><p><a href="#">链接2</a></p></li>
-				<li><p><a href="#">链接3</a></p></li>
+				<li class="li-p"><p><a href="#">链接1</a></p></li>
+				<li class="li-p"><p><a href="#">链接2</a></p></li>
+				<li class="li-p"><p><a href="#">链接3</a></p></li>
 			</ul>
 			<ul>
-				<li><p><a href="#">链接1</a></p></li>
-				<li><p><a href="#">链接2</a></p></li>
+				<li><p><a href="#">链接4</a></p></li>
 				<li>
 					<ul>
-						<li><p><a href="#">链接1</a></p></li>
-						<li><p><a href="#">链接2</a></p></li>
-						<li><p><a href="#">链接3</a></p></li>
+						<li class="li-p"><p><a href="#">子链接1</a></p></li>
+						<li class="li-p"><p><a href="#">子链接2</a></p></li>
+						<li class="li-p"><p><a href="#">子链接3</a></p></li>
+						<li></li>
 					</ul>
 				</li>
 			</ul>
@@ -27,90 +30,105 @@
 			var test = document.getElementsByClassName('test')[0]
 			function cdE (ele, eleSubType) {
 				var NodeArr = []
-				for (var c = 0; c < ele.childNodes.length; c++) {
-					console.log(ele.childNodes[c].nodeName.toLowerCase() == eleSubType.value)
-					if (eleSubType.type = 'name') {
-						if (ele.childNodes[c].nodeType == 1 && (ele.childNodes[c].nodeName.toLowerCase() == eleSubType.value)) {
-							NodeArr.push(ele.childNodes[c])
+				NodeArr[0] = []
+				NodeArr[1] = []
+				for (var s = 0; s < ele.length; s++) {
+					for (var c = 0; c < ele[s].childNodes.length; c++) {
+						
+						if (eleSubType.type == 'name') {
+							if (ele[s].childNodes[c].nodeType == 1 && (ele[s].childNodes[c].nodeName.toLowerCase() == eleSubType.value)) {
+								NodeArr[0].push(ele[s].childNodes[c])
+								NodeArr[1].push(ele[s].childNodes[c])
+							} else if (ele[s].childNodes[c].nodeType == 1) {
+								// NodeArr[0].push(null)
+								NodeArr[1].push(ele[s].childNodes[c])
+							}
+							
+						} else if (eleSubType.type == 'cssName') {
+							console.log(eleSubType)
+							var re = new RegExp("(^|\\s)" + eleSubType.value + "(\\s|$)");
+							if (ele[s].childNodes[c].nodeType == 1 && re.test(ele[s].childNodes[c].className)) {
+								NodeArr[0].push(ele[s].childNodes[c])
+								NodeArr[1].push(ele[s].childNodes[c])
+							} else if (ele[s].childNodes[c].nodeType == 1) {
+								// NodeArr[0].push(null)
+								NodeArr[1].push(ele[s].childNodes[c])
+							}
+						} else if (eleSubType.type == 'idName') {
+							if (ele[s].childNodes[c].nodeType == 1 && re.test(ele[s].childNodes[c].id == eleSubType.value)) {
+								NodeArr[0].push(ele[s].childNodes[c])
+								NodeArr[1].push(ele[s].childNodes[c])
+							} else if (ele[s].childNodes[c].nodeType == 1) {
+								// NodeArr[0].push(null)
+								NodeArr[1].push(ele[s].childNodes[c])
+							}
 						}
 					}
-					// if (eleSubType.type = 'name') {
-						// if (ele[c].nodeType == 1 && ele[c].nodeName.toLowerCase() == eleSubType.value) NodeArr.push(ele[c])
-					// } else if (eleSubType.type = 'className') {
-						// var re = new RegExp("(^|\\s)" + eleSubType.value + "(\\s|$)");
-						// if (ele[c].nodeType == 1 && re.test(ele[c].className)) NodeArr.push(ele[c])
-					// } else if (eleSubType.type = 'idName') {
-						// if (ele[c].nodeType == 1 && ele[c].id == eleSubType.value) NodeArr.push(ele[c])
-					// }
 				}
 				return NodeArr
 			}
 			
-			function find (ele, eleChildren, eleSubType) {
-				var NodeArr = []
-				if (ele.childNodes) {
-					NodeArr.push(cdE(ele, eleSubType))
-				} else {
-					for (var l = 0; l < ele.length; l++) {
-						NodeArr.push(cdE(ele[l], eleSubType))
+			function userChildren (ele, eleChildren, eleSubType) {
+				var tempArr = cdE(ele, eleSubType)
+				console.log(tempArr)
+				if (!tempArr[0].length && !tempArr[1].length) {
+					console.log(eleChildren.all, eleChildren.mine)
+					return eleChildren
+				}
+				if (tempArr.length && tempArr[0].length > 0) {
+					eleChildren.mine.push(tempArr[0])
+				}
+				// if (ele.childNodes) {
+					// NodeArr.push(cdE(ele, eleSubType))
+				// } else {
+					// for (var l = 0; l < ele.length; l++) {
+						// NodeArr.push(cdE(ele[l], eleSubType))
+					// }
+				// }
+				if (tempArr.length && tempArr[1].length > 0) {
+					for (var r = 0; r < tempArr[1].length; r++) {
+						eleChildren.all.push(tempArr[1][r])
 					}
+					return userChildren(tempArr[1], eleChildren, eleSubType)
 				}
-				
-				console.log(NodeArr)
-				
-				for (var r = 0; r < NodeArr.length; r++) {
-					eleChildren.push(NodeArr[r])
-				}
-				for (var v = 0; v < NodeArr.length; v++) {
-					for (var s = 0; s < NodeArr[v].length; s++) {
-						if (NodeArr[v][s].childNodes) {
-							return find(NodeArr[v][s], eleChildren, eleSubType)
-						}
-					}
-				}
-				return eleChildren
 			}
 			
 		
-		 var userChildren = function (ele, eleSub) {
-		 	var eleChildren = []
-		 	if (!ele.childNodes) return eleChildren
+		 var find = function (ele, eleSub) {
+		 	var eleChildren = {
+		 		all: [],  // 存放元素节点1总和
+		 		mine: [] // 只存放我指定的元素节点
+		 	} // 存所有子元素
+		 	var eleSubType = null // 区分是样式名|是id名|是标签名
+		 	if (!ele.childNodes) return eleChildren.all
 			// 是找标签|class|id
-			if (/^\./g.test(eleSub)) {
-				var eleSubType = {type: 'className', value: eleSub}
+			if (!eleSub) {
+				eleSubType = null
+		 	} else if (/^\./g.test(eleSub)) {
+				eleSubType = {type: 'cssName', value: eleSub.slice(1)}
 			} else if (/^\#/g.test(eleSub)) {
-				var eleSubType = {type: 'idName', value: eleSub}
+				eleSubType = {type: 'idName', value: eleSub}
 			} else {
-				var eleSubType = {type: 'name', value: eleSub}
+				eleSubType = {type: 'name', value: eleSub}
 			}
 			
+			var eleArr = []
+			eleArr.push(ele)
+			var result = userChildren(eleArr, eleChildren, eleSubType)
+			if (!eleSubType) return result.all
+			// 如果是多个数组,将多个数组合并为一个数组
+			if (result.mine.length > 1) {
+				for (var a = 1; a < result.mine.length; a++) {
+					for(var i in result.mine[a]){
+					  result.mine[0].push(result.mine[a][i]);
+					}
+				}
+			}
+			return result.mine[0]
 			
-			// var chid=ele.childNodes
-			
-			return find(ele, eleChildren, eleSubType)
-			// for (var i=0, l = chid.length; i < l; i++) {
-				// if (eleSubType.type = 'name') {
-					// console.log(chid[i].nodeName)
-					// if (chid[i].eleSub == 1 && (chid[i].nodeName.toLowerCase() == eleSubType.value)) {
-						// eleMatch.push(chid[i])
-					// }
-					// 
-				// } else if (eleSubType.type = 'className') {
-					// var re = new RegExp("(^|\\s)" + eleSubType.value + "(\\s|$)");
-					// if (chid[i].eleSub == 1 && re.test(chid[i].className)) eleMatch.push(chid[i])
-				// } else if (eleSubType.type = 'idName') {
-					// if (chid[i].eleSub == 1 && chid[i].id == eleSubType.value) eleMatch.push(chid[i])
-				// }
-			// }
-			// 
-			// var eleChildren = eleMatch
-			// for (var v = 0; v < eleMatch.length; v++) {
-				// if (eleMatch[v].childNodes) {
-					// return find(eleMatch, eleChildren, eleSubType)
-				// }
-			// }
 		}
-			console.log(userChildren(test, 'li'))
+		
+		console.log(find(test, '.li-p'))
 		</script>
 	</body>
 </html>
